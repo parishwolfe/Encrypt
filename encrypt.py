@@ -56,7 +56,9 @@ if args.decrypt:
         decrypted = f.decrypt(data)
     except cryptography.fernet.InvalidToken:
         print("Incorrect key")
-        exit(1)
+        with open(args.file, 'wb') as file:
+            file.write(data)
+            exit(1)
     with open(args.file, 'wb') as file:
         file.write(decrypted)
     outpath = args.file.replace('.enc', '')
